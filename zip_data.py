@@ -3,7 +3,7 @@ import csv
 import shutil
 from concurrent.futures import ProcessPoolExecutor
 
-DEBUG = True
+DEBUG = False
 REDO = True
 
 
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     root_directory = 'CVACT'  # Replace with your directory path
     for subdir, _, files in os.walk(root_directory):
         image_files = [f for f in files if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp'))]
-        if 'CVACT_orientations' in subdir:
+        if 'orientations' in subdir:
             # copy this directory to the new directory
             shutil.copytree(subdir, subdir.replace("CVACT", "CVACT_bin"))
             continue
