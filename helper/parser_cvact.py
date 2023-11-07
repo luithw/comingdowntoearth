@@ -8,7 +8,7 @@ class Parser():
 
     def initialize(self, parser):
         #basic parameters
-        parser.add_argument('--results_dir', '-o', type=str, default='./placeholder_results_dir', help='models are saved here')
+        parser.add_argument('--results_dir', '-o', type=str, default='./CVACT_results', help='models are saved here')
         parser.add_argument('--name', type=str, default='', help='')
         parser.add_argument('--seed', type=int, default=10)
         parser.add_argument('--gpu_ids', type=str, default='0', help='gpu ids: e.g. 0  0,1')
@@ -18,9 +18,9 @@ class Parser():
         parser.add_argument('--start_epoch', type=int, default=0)
 
         #data parameters
-        parser.add_argument('--data_root', type=str, default= './placeholder_data_path')
-        parser.add_argument('--data_list', type=str, default= './placeholder_data_list')
-        parser.add_argument('--polar', default=True, action='store_true')
+        parser.add_argument('--data_root', type=str, default= './CVACT_bin/ANU_data_small/')
+        parser.add_argument('--data_list', type=str, default= './CVACT_bin/orientations/ACT_data.mat')
+        parser.add_argument('--polar', default=False, action='store_true')
         parser.add_argument('--save_step', type=int, default=10)
         parser.add_argument('--rgan_checkpoint', type=str, default=None)
 
@@ -115,10 +115,10 @@ class Parser():
         file = self.print_options(opt)
         str_ids = opt.gpu_ids.split(',')
         opt.gpu_ids = []
-        for str_id in str_ids:
-            id = int(str_id)
-            if id >= 0:
-                opt.gpu_ids.append(id)
+        # for str_id in str_ids:
+        #     id = int(str_id)
+        #     if id >= 0:
+        #         opt.gpu_ids.append(id)
         if len(opt.gpu_ids) > 0:
             torch.cuda.set_device(opt.gpu_ids[0])
 

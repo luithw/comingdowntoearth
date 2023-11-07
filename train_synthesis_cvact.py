@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 from helper import parser_cvact
 from data.custom_transforms import *
 from data.cvact_utils import CVACT
@@ -60,6 +62,11 @@ if __name__ == '__main__':
         rgan_wrapper.discriminator.train()
         rgan_wrapper.retrieval.train()
         for i, (data, utm) in enumerate(train_loader):  # inner loop within one epoch
+
+            # fig, axess = plt.subplots(1, 2, figsize=(15, 5))
+            # axess[0].imshow(data['satellite'][0].transpose(0, 2).transpose(0, 1) /2 + 0.5)
+            # axess[1].imshow(data['street'][0].transpose(0, 2).transpose(0, 1) /2 + 0.5)
+            # plt.show()
 
             rgan_wrapper.set_input_cvact(data, utm)
             rgan_wrapper.optimize_parameters(epoch)

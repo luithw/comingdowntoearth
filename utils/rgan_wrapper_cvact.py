@@ -89,6 +89,7 @@ class RGANWrapper(BaseModel):
 
     def optimize_parameters(self, epoch):
 
+        breakpoint()
         self.forward()
 
         # update D
