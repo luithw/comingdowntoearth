@@ -11,6 +11,7 @@ class BaseModel(ABC):
         self.gpu_ids = opt.gpu_ids
         self.model_names = []
         # Seed and CUDA
+        # self.device = torch.device('cuda:{}'.format(self.gpu_ids[0])) if self.gpu_ids else torch.device('mps') if torch.backends.mps.is_available() else torch.device('cpu')
         self.device = torch.device('cuda:{}'.format(self.gpu_ids[0])) if self.gpu_ids else torch.device('cpu')
         self.opt.device = self.device
         self.save_dir = dirname(log_file)

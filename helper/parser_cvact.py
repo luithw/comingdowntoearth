@@ -18,8 +18,12 @@ class Parser():
         parser.add_argument('--start_epoch', type=int, default=0)
 
         #data parameters
+        # parser.add_argument('--data_root', type=str, default= './CVACT/ANU_data_small/')
+        # parser.add_argument('--data_list', type=str, default= './CVACT/orientations/ACT_data.mat')
+
         parser.add_argument('--data_root', type=str, default= './CVACT_bin/ANU_data_small/')
         parser.add_argument('--data_list', type=str, default= './CVACT_bin/orientations/ACT_data.mat')
+
         parser.add_argument('--polar', default=True, action='store_true')
         parser.add_argument('--save_step', type=int, default=10)
         parser.add_argument('--rgan_checkpoint', type=str, default=None)

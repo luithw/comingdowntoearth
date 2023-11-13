@@ -53,8 +53,7 @@ class CVACT(data.Dataset):
                         sat_lookup = self.bin_file_lookup['satview_polish'].loc[sat_id_ori]
                 except KeyError as err:
                     grd_id_align = "placeholder"
-                    pano_lookup = "placeholder"
-                    sat_lookup = "placeholder"
+                    sat_id_ori = "placeholder"
             else:
                 grd_id_align = self.root + 'streetview_polish/' + self.all_data['panoIds'][i] + '_grdView.jpg'
                 if self.polar:
@@ -83,6 +82,12 @@ class CVACT(data.Dataset):
         self.dataUTM = np.zeros([2, self.dataNum], dtype=np.float32)
         for k in range(self.dataNum):
             try:
+                if "bin" in self.root:
+                    if self.all_list[self.data_inds[k][0]][1] == "placeholder":
+                        continue
+                else:
+                    if not os.path.exists(self.all_list[self.data_inds[k][0]][1]):
+                        continue
                 self.dataList.append(self.all_list[self.data_inds[k][0]])
                 self.dataUTM[:, k] = self.utms_all[:, self.data_inds[k][0]]
                 self.dataIdList.append(k)
