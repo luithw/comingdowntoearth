@@ -88,8 +88,6 @@ class RGANWrapper(BaseModel):
         self.g_loss.backward()
 
     def optimize_parameters(self, epoch):
-
-        breakpoint()
         self.forward()
 
         # update D

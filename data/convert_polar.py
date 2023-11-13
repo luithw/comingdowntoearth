@@ -72,8 +72,8 @@ jj, ii = np.meshgrid(j, i)
 y = S / 2. - S / 2. / height * (height - 1 - ii) * np.sin(2 * np.pi * jj / width)
 x = S / 2. + S / 2. / height * (height - 1 - ii) * np.cos(2 * np.pi * jj / width)
 
-input_dir = './CVACT/ANU_data_test/satview_polish/'
-output_dir = './CVACT/ANU_data_test/polarmap/'
+input_dir = './CVACT/ANU_data_small/satview_polish/'
+output_dir = './CVACT/ANU_data_small/polarmap/'
 
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
@@ -86,8 +86,8 @@ for i, img in enumerate(images):
 
 ############################ Prepare Street View Images in CVACT to Accelerate Training Time #############################
 import cv2
-input_dir = './CVACT/ANU_data_test/streetview/'
-output_dir = './CVACT/ANU_data_test/streetview_polish/'
+input_dir = './CVACT/ANU_data_small/streetview/'
+output_dir = './CVACT/ANU_data_small/streetview_polish/'
 
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)

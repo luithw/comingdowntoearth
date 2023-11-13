@@ -1,13 +1,11 @@
-import csv
 import io
 import os
 import torch.utils.data as data
 import scipy.io as sio
 import numpy as np
-import cv2
 import pandas as pd
 from PIL import Image
-from torchvision import transforms
+import traceback
 
 
 class CVACT(data.Dataset):
@@ -53,16 +51,16 @@ class CVACT(data.Dataset):
                         sat_lookup = self.bin_file_lookup['polarmap'].loc[sat_id_ori]
                     else:
                         sat_lookup = self.bin_file_lookup['satview_polish'].loc[sat_id_ori]
-                except KeyError:
-                    continue
+                except KeyError as err:
+                    grd_id_align = "placeholder"
+                    pano_lookup = "placeholder"
+                    sat_lookup = "placeholder"
             else:
                 grd_id_align = self.root + 'streetview_polish/' + self.all_data['panoIds'][i] + '_grdView.jpg'
-
                 if self.polar:
                     sat_id_ori = self.root + 'polarmap/' + self.all_data['panoIds'][i] + '_satView_polish.jpg'
                 else:
                     sat_id_ori = self.root + 'satview_polish/' + self.all_data['panoIds'][i] + '_satView_polish.jpg'
-
             self.all_list.append([grd_id_ori, grd_id_align, grd_id_ori_sem,
                                   grd_id_align_sem, sat_id_ori, sat_id_sem,
                                   self.all_data['utm'][i][0], self.all_data['utm'][i][1]])
@@ -88,11 +86,10 @@ class CVACT(data.Dataset):
                 self.dataList.append(self.all_list[self.data_inds[k][0]])
                 self.dataUTM[:, k] = self.utms_all[:, self.data_inds[k][0]]
                 self.dataIdList.append(k)
-            except IndexError:
+            except IndexError as err:
                 continue
         self.data_list_size = len(self.dataList)
         print('Load data from {}, total {}'.format(self.all_data_list, self.data_list_size))
-
 
     def load_im(self, file, resize=None):
         im = Image.open(file)
